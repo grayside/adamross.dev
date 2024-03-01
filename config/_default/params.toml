@@ -4,6 +4,10 @@ mainSections = ["post"]
 rssFullContent = true
 favicon = "/favicon.png"
 
+# Custom
+# Consider matching summaryLength from hugo.toml.
+searchSnippetSummaryLength = 70
+
 [footer]
 since = 2020
 customText = ""

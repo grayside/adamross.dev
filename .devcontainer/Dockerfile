@@ -26,6 +26,10 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
     tar xf ${VERSION}.tar.gz && \
     mv hugo /usr/bin/hugo
 
+# Custom packages. (Keeping my environment's layer cache for today)
+# Using the npm installation wrapper for installing taskfile.dev
+RUN sudo -u node npm install -g @go-task/cli
+
 # Hugo dev server port
 EXPOSE 1313
 
@@ -36,3 +40,5 @@ EXPOSE 1313
 
 # [Optional] Uncomment if you want to install more global node packages
 # RUN sudo -u node npm install -g <your-package-list-here>
+
+# https://taskfile.dev/

@@ -1,3 +1,20 @@
 /*
     You can add your own custom styles here.
 */
+
+.tagCloud .tags {
+    a {
+        text-transform: lowercase;
+    }
+}
+
+.article-tags {
+    a {
+        background-color: var(--body-background);
+        color: var(--body-text-color);
+        text-transform: lowercase;
+    }
+    a:before {
+        content: "#";
+    }
+}

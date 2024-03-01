@@ -1,5 +1,4 @@
 {{- $context := .Context -}}
-{{ .Params.limit }}
 {{- $limit := default 10 .Params.limit -}}
 {{- $minUsage := default 1 .Params.tagCloudMinUsage -}}
 <section class="widget tagCloud">
@@ -7,9 +6,9 @@
         {{ partial "helper/icon" "tag" }}
     </div>
     <h2 class="widget-title section-title">{{ T "widget.tagCloud.title" }}</h2>
-    <div class="tagCloud-tags">
+    <div class="tagCloud-tags tags">
         {{- range first $limit $context.Site.Taxonomies.tags.ByCount }}
-        {{- if gt .Count $minUsage }}
+        {{- if ge .Count $minUsage }}
             <a href="{{ .Page.RelPermalink }}" class="font_size_{{ .Count }}">{{ .Page.Title }}</a>
         {{- end }}{{ end }}
     </div>

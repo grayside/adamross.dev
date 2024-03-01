@@ -54,7 +54,7 @@ type = "tag-cloud"
 
 [widgets.homepage.params]
 limit = 10
-tagCloudMinUsage = 1 #custom
+tagCloudMinUsage = 2 #custom
 
 [[widgets.page]]
 type = "toc"

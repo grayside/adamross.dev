@@ -1,0 +1,11 @@
+version: '3'
+
+includes:
+  hugo: ./Taskfile_{{OS}}.yml
+
+
+tasks:
+  default:
+    desc: 'Run hugo:serve on {{OS}}'
+    cmds:
+      - task: 'hugo:serve'

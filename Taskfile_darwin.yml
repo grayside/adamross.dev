@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  serve:
+    desc: Run the hugo server, build drafts. For local dev.
+    cmds:
+      - hugo server -D

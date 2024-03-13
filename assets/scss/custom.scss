@@ -18,3 +18,57 @@
         content: "#";
     }
 }
+
+
+section.callout {
+    color:  var(--card-text-color-secondary);
+    background-color: var(--blockquote-background-color);
+    margin: 1.5em 0;
+    padding: 10px calc(var(--card-padding) - 10px);
+    position: relative;
+    // Default color
+    border-inline-start: var(--blockquote-border-size) solid var(--card-separator-color);
+}
+
+[data-scheme="light"] {
+    @import "partials/highlight/light.scss";
+    section.callout-info {
+        border-inline-start: var(--blockquote-border-size) solid $name-color; 
+    }
+    section.callout-important {
+        border-inline-start: var(--blockquote-border-size) solid $keyword-color; 
+    }
+    section.callout-error {
+        border-inline-start: var(--blockquote-border-size) solid $error-color; 
+    }
+}
+
+[data-scheme="dark"] {
+    @import "partials/highlight/dark.scss";
+    section.callout-info {
+        border-inline-start: var(--blockquote-border-size) solid $name-color; 
+        :before {
+            content: "📗\2002"
+        }
+    }
+
+
+    section.callout-important {
+        border-inline-start: var(--blockquote-border-size) solid $keyword-color; 
+        :before {
+            content: "📘\2002"
+        }
+    }
+    section.callout-error {
+        border-inline-start: var(--blockquote-border-size) solid $error-color; 
+        :before {
+            content: "📕\2002"
+        }
+    }
+}
+
+footer.context {
+    display: flex;
+    color: var(--card-text-color-tertiary);
+    gap: 15px;
+}

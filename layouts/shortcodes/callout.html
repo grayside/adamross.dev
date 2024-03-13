@@ -1,0 +1,4 @@
+{{- $level := .Get "level" | default (.Get 0) | default "info" -}}
+<section class="context callout callout-{{ $level }}">
+    <p role="note">{{ .Inner | markdownify}}</p>
+</section>

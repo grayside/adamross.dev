@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
 # Using the npm installation wrapper for installing taskfile.dev
 RUN sudo -u node npm install -g @go-task/cli
 
+RUN go install github.com/tdewolff/minify/v2/cmd/minify@latest
+
 # Hugo dev server port
 EXPOSE 1313
 

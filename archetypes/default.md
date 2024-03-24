@@ -7,7 +7,6 @@ description: 'Some description, huh?'
 
 categories:
   - TODO
-
 tags:
   - TODO
 
@@ -16,7 +15,9 @@ hidden: false # hide from lists if true
 rssFullContent: true
 
 # Specify an external canonical URL.
+# If both are present, will be linked from footer of post.
 # canonical: http://example.com
+# canonicalTitle: Example Article Title
 ---
 
 ## Image Gallery

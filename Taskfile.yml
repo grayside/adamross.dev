@@ -9,9 +9,7 @@ tasks:
     cmds:
       - task: 'hugo:serve'
 
-  minify:
-    desc: 'Minify built site'
+  build:
+    desc: 'Build site'
     cmds:
-      - minify -s -r -o minified/ public/
-      - rm -Rf public
-      - mv minified public
+      - hugo --minify

@@ -1,0 +1,4 @@
+
+{{- if and $.GitInfo site.Params.gitRepository -}}
+  {{ partial "footer/gitinfo" . }}
+{{- end -}}

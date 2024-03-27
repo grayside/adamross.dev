@@ -4,13 +4,15 @@ mainSections = ["post"]
 rssFullContent = true
 favicon = "/favicon.ico"
 
+gitRepository = "https://github.com/grayside/adamross.dev"
+
 # Custom
 # Consider matching summaryLength from hugo.toml.
 searchSnippetSummaryLength = 70
 
 [footer]
 since = 2024
-customText = ""
+customText = "Customized for adamross.dev"
 
 [dateFormat]
 published = " 2006 January 02"

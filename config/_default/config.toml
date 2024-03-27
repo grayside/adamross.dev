@@ -20,3 +20,5 @@ enableRobotsTXT = true
 
 # Specify the default truncated length of content summaries.
 summaryLength = 70
+
+enableGitInfo = true

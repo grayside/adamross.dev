@@ -1,0 +1,8 @@
+
+<footer>
+{{- $p := (printf "tree/%s/content" $.GitInfo.AbbreviatedHash) }}
+{{- with .File }}
+{{- $p = (printf "blob/%s/content/%s" $.GitInfo.AbbreviatedHash .Path) }}
+{{- end -}}
+<p><a href="{{ site.Params.gitRepository }}/{{ $p }}" title="'{{ $.GitInfo.Subject }}' on {{ $.GitInfo.AuthorDate }}" target="_blank">&nbsp;&pi;&nbsp;</a></p>
+</footer>

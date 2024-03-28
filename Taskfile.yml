@@ -8,8 +8,23 @@ tasks:
     desc: 'Run hugo:serve on {{OS}}'
     cmds:
       - task: 'hugo:serve'
+    env:
+      HUGO_DRAFTS: 1
+
+  preview:
+    desc: 'Run hugo:serve on {{OS}}, no drafts'
+    cmds:
+      - task: 'hugo:serve'
+    env:
+      HUGO_DRAFTS: 0
 
   build:
     desc: 'Build site'
     cmds:
       - hugo --minify
+
+  deploy:
+    desc: 'Deploy site'
+    cmds:
+      - task: 'build'
+      - 'firebase deploy'

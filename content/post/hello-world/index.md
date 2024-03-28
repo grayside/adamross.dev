@@ -3,15 +3,15 @@ title: 'Hello World'
 date: '2024-03-13T05:11:50Z'
 publishDate: '2024-03-13T05:11:50Z'
 # Description is used as a page subtitle & search index.
-description: 'Obligatory first program.'
+description: 'Introducing this site and why someone might like to read posts in the future.'
 
 categories:
   - Meta
 
-tags:
-  - hugo
+# tags:
+#   - todo
 
-draft: true # hide from production deployment
+draft: false # hide from production deployment
 hidden: false # hide from lists if true
 rssFullContent: true
 
@@ -19,3 +19,4 @@ rssFullContent: true
 # canonical: http://example.com
 ---
 
+Hello World

@@ -1,3 +1,11 @@
+{{/*
+    Customized to set a minimum threshold for display of tags.
+    Once I have a top $limit of tags used a few times this is a non-issue.
+    New parameter: tagCloudMinUsage
+
+    Copied from https://github.com/CaiJimmy/hugo-theme-stack/blob/4d552a9/layouts/partials/widget/tag-cloud.html
+*/}}
+
 {{- $context := .Context -}}
 {{- $limit := default 10 .Params.limit -}}
 {{- $minUsage := default 1 .Params.tagCloudMinUsage -}}

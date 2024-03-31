@@ -1,14 +1,5 @@
-{{/* Direct robots not to index tag pages or the search page, and limit search result snippet length. */}}
-{{/* TODO: Exclude archive after the first page from index. */}}
-{{/* TODO: Consider including tags that have content in the index and excluding categories that lack content. */}}
-{{ $index := "" }}
-{{ if or (and (eq .Kind "term") (eq .Type "tags")) (eq .Name "Search") }}
-{{ $index = "noindex," }}
-{{ end }}
-<meta name='robots' content='{{ $index }}max-snippet:{{ site.Params.searchSnippetSummaryLength }}'>
+{{/* Empty hook partial provided by the theme to customize the HTML HEAD */}}
 
-{{/* Extended favicon support */}}
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+{{ partial "head/custom-robots.html" . }}
+{{ partial "head/custom-favicons.html" . }}
+

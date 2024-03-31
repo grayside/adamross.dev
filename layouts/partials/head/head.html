@@ -1,3 +1,8 @@
+{{/*
+    This partial is overridden to support adding a canonical link configuration option.
+    Once https://github.com/CaiJimmy/hugo-theme-stack/pull/816 lands, this might be removed.
+    Copied from https://github.com/CaiJimmy/hugo-theme-stack/blob/eafcf89/layouts/partials/head/head.html
+*/}}
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
@@ -24,7 +29,7 @@
 {{- end -}}
 
 {{ with .Site.Params.favicon }}
-    <link rel="shortcut icon" href="{{ . }}" />
+    <link rel="shortcut icon" href="{{ . | relURL }}" />
 {{ end }}
 
 {{- template "_internal/google_analytics.html" . -}}

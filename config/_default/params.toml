@@ -4,9 +4,14 @@ mainSections = ["post"]
 rssFullContent = true
 favicon = "/favicon.ico"
 
+## Custom
+
+# <gitinfo>
+# Used in layouts/partials/footer/gitinfo.html to create an absolute URL to the repository.
 gitRepository = "https://github.com/grayside/adamross.dev"
 
-# Custom
+# <robots>
+# Used in layouts/partials/head/custom-robots.html to customize search engine snippet guidance.
 # Consider matching summaryLength from hugo.toml.
 searchSnippetSummaryLength = 70
 
@@ -37,7 +42,8 @@ default = "Licensed under CC BY-NC-SA 4.0"
 
 ## Widgets
 [[widgets.homepage]]
-type = "search"
+# Disabling search widget, preferring only the dedicated search page.
+#type = "search"
 
 [[widgets.homepage]]
 type = "archives"
@@ -46,7 +52,8 @@ type = "archives"
 limit = 5
 
 [[widgets.homepage]]
-type = "categories"
+# Disabling categories widget: I'm not ready to use it yet.
+#type = "categories"
 
 [widgets.homepage.params]
 limit = 10

@@ -1,5 +1,11 @@
+{{/*
+    This partial is overridden so content can be injected into the main article content.
+    Given styling and accessibility concerns, no problem moving this later.
+    Copied from https://github.com/CaiJimmy/hugo-theme-stack/blob/0af9d23/layouts/partials/article/components/content.html
+*/}}
 <section class="article-content">
-    {{ partial "article/components/context" .}}
+    {{/* Custom partial added here to inherit styling. */}}
+    {{ partial "article/components/custom-context" .}}
 
     <!-- Refer to https://discourse.gohugo.io/t/responsive-tables-in-markdown/10639/5 -->
     {{ $wrappedTable := printf "<div class=\"table-wrapper\">${1}</div>" }}

@@ -1,10 +1,16 @@
+{{/*
+    This partial is overridden to hooking into the content more easily.
+    It is currently used to inject the custom/canonical template.
+    Copied from https://github.com/CaiJimmy/hugo-theme-stack/blob/b14ca5d/layouts/partials/article/article.html
+*/}}
+
 <article class="{{ if .Params.image }}has-image {{ end }}main-article">
     {{ partial "article/components/header" . }}
 
     {{ partial "article/components/content" . }}
 
     {{ if and .Params.canonical .Params.canonicalTitle }}
-        {{ partial "article/custom/canonical" . }}
+        {{ partial "article/components/custom-canonical" . }}
     {{ end }}
 
     {{ partial "article/components/footer" . }}

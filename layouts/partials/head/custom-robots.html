@@ -1,0 +1,8 @@
+{{/* Direct robots not to index tag pages or the search page, and limit search result snippet length. */}}
+{{/* TODO: Exclude archive after the first page from index. */}}
+{{/* TODO: Consider including tags that have content in the index and excluding categories that lack content. */}}
+{{ $index := "" }}
+{{ if or (and (eq .Kind "term") (eq .Type "tags")) (eq .Name "Search") }}
+{{ $index = "noindex," }}
+{{ end -}}
+<meta name='robots' content='{{ $index }}max-snippet:{{ site.Params.searchSnippetSummaryLength }}'>

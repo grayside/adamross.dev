@@ -21,7 +21,7 @@ tasks:
   build:
     desc: 'Build site'
     cmds:
-      - hugo --minify
+      - hugo --minify --baseURL https://adamross.dev
 
   deploy:
     desc: 'Deploy site'

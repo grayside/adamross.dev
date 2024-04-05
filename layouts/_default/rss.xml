@@ -58,6 +58,7 @@
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{- end }}
     {{- range $pages }}
+    {{ if ne .Section "page" }}
     {{- $content := safeHTML (.Summary | transform.XMLEscape | html) -}}
     {{- if or .Site.Params.rssFullContent .Params.rssFullContent -}}
         {{- $content = safeHTML (.Content | transform.XMLEscape | html) -}}
@@ -72,6 +73,7 @@
       <description>{{- if $image.exists }}{{ "<" | transform.XMLEscape }}img src="{{ $image.permalink | absURL }}" alt="Featured image of post {{ .Title }}" {{ "/>" | transform.XMLEscape }}{{ end }}
       {{ $content }}</description>
     </item>
+    {{- end }}
     {{- end }}
   </channel>
 </rss>

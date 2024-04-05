@@ -15,6 +15,12 @@ gitRepository = "https://github.com/grayside/adamross.dev"
 # Consider matching summaryLength from hugo.toml.
 searchSnippetSummaryLength = 70
 
+
+[outputs]
+  home = ['html']
+  page = ['html']
+  post = ['html', 'rss']
+
 [footer]
 since = 2024
 customText = "Customized for adamross.dev"

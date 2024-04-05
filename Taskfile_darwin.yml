@@ -4,4 +4,4 @@ tasks:
   serve:
     desc: Run the hugo server, build drafts. For local dev.
     cmds:
-      - hugo server -D
+      - hugo server {{.HUGO_FLAGS}}

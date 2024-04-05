@@ -8,15 +8,15 @@ tasks:
     desc: 'Run hugo:serve on {{OS}}'
     cmds:
       - task: 'hugo:serve'
-    env:
-      HUGO_DRAFTS: 1
+        vars:
+          HUGO_FLAGS: '-D'
 
   preview:
     desc: 'Run hugo:serve on {{OS}}, no drafts'
     cmds:
       - task: 'hugo:serve'
-    env:
-      HUGO_DRAFTS: 0
+        vars:
+          HUGO_FLAGS: ''
 
   build:
     desc: 'Build site'

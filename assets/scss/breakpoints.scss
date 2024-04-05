@@ -4,10 +4,10 @@
 // breakpoint at 2500.
 $breakpoints: (
     sm: 640px,
-    md: 1024px,
-    lg: 1280px,
-    xl: 1536px,
-    2xl: 2500px,
+    md: 1024px, // Boosted this so mobile landscape wouldn't lose horizontal space
+    lg: 1180px, // Reduced this so the switch to adding table of contents would be less jarring
+    xl: 1300px, // Reduced this so table of contents with wide content space would happen at narrower width
+    2xl: 2500px, // Raised this for large screens
 );
 
 @mixin respond($breakpoint) {

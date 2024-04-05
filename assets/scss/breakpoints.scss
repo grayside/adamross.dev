@@ -1,0 +1,21 @@
+// The default breakpoints squeeze the horizontal reading space on mobile
+// landscape. (e.g., Pixel 783, Pixel Pro 892).
+// Removed the medium breakpoint 768, slid the others up, with a new 2500px
+// breakpoint at 2500.
+$breakpoints: (
+    sm: 640px,
+    md: 1024px,
+    lg: 1280px,
+    xl: 1536px,
+    2xl: 2500px,
+);
+
+@mixin respond($breakpoint) {
+    @if not map-has-key($breakpoints, $breakpoint) {
+        @warn "'#{$breakpoint}' is not a valid breakpoint";
+    } @else {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}

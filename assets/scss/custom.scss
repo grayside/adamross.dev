@@ -47,7 +47,7 @@ section.callout {
     @import "partials/highlight/dark.scss";
     section.callout-info {
         border-inline-start: var(--blockquote-border-size) solid $name-color; 
-        :before {
+        p:before {
             content: "📗\2002"
         }
     }
@@ -55,13 +55,13 @@ section.callout {
 
     section.callout-important {
         border-inline-start: var(--blockquote-border-size) solid $keyword-color; 
-        :before {
+        p:before {
             content: "📘\2002"
         }
     }
     section.callout-error {
         border-inline-start: var(--blockquote-border-size) solid $error-color; 
-        :before {
+        p:before {
             content: "📕\2002"
         }
     }

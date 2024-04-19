@@ -1,4 +1,9 @@
+# Args used in container tags:
 ARG NODE_VERSION=20
+
+# This is the official docker image for Vale, defined in https://github.com/errata-ai/vale/blob/v3/Dockerfile
+FROM jdkato/vale:latest AS vale
+
 FROM mcr.microsoft.com/devcontainers/javascript-node:${NODE_VERSION}
 
 # VARIANT can be either 'hugo' for the standard version or 'hugo_extended' for the extended version.
@@ -41,3 +46,5 @@ EXPOSE 1313
 RUN sudo -u node npm install -g \
   @go-task/cli \
   firebase-tools
+
+COPY --from=vale /bin/vale /usr/bin/vale

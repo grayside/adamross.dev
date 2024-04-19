@@ -30,7 +30,8 @@
 				"tamasfe.even-better-toml",
 				"davidanson.vscode-markdownlint",
 				"ms-azuretools.vscode-docker",
-				"GitHub.vscode-github-actions"
+				"GitHub.vscode-github-actions",
+				"chrischinchilla.vale-vscode"
 			]
 		}
 	},

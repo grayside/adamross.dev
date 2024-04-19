@@ -1,0 +1,16 @@
+{{/* Override:
+    - Remove lastmod from footer, I want it at the top
+    - Add custom-footer template hook
+*/}}
+<footer class="article-footer">
+    {{ partial "article/components/tags" . }}
+
+    {{ if and (.Site.Params.article.license.enabled) (not (eq .Params.license false)) }}
+    <section class="article-copyright">
+        {{ partial "helper/icon" "copyright" }}
+        <span>{{ default .Site.Params.article.license.default .Params.license | markdownify }}</span>
+    </section>
+    {{ end }}
+
+    {{ partial "article/components/custom-footer" . }}
+</footer>

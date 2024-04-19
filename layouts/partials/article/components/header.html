@@ -1,0 +1,5 @@
+{{/* Stripped down the header template to focus on header components. */}}
+<header class="article-header">
+    {{ partial "article/components/custom-cover.html" . }}
+    {{ partialCached "article/components/details" . .RelPermalink }}
+</header>

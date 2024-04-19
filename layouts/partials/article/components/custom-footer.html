@@ -1,0 +1,6 @@
+{{ if .Params.imageCredit }}
+<section class="article-copyright">
+    {{ partial "helper/icon" "copyright" }}
+    <span>{{ .Params.imageCredit | markdownify }}</span>
+</section>
+{{ end }}

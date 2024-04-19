@@ -1,0 +1,13 @@
+default: true
+single-title: false
+no-trailing-punctuation:
+  punctuation: .,;!。，；：！
+no-bare-urls: false
+no-inline-html: false
+blanks-around-headings:
+  lines_above: 1
+  lines_below: 1
+blanks-around-lists:
+  lines_above: 0
+  lines_below: 1
+line-length: false

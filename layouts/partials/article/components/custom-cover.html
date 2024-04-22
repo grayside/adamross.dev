@@ -1,6 +1,12 @@
-
+{{/* This is the default theme configuration, pulled out to a dedicated partial. */}}
 {{- $image := partialCached "helper/image" (dict "Context" . "Type" "article") .RelPermalink "article" -}}
+
 {{ if $image.exists }}
+    {{ $attrs := (printf "alt=\"Featured image of post %s\"" .Title) }}
+    {{- if $image.alt }}
+    {{ $attrs = (printf "title=\"Featured image of post %s\" alt=\"%s\"" .Title $image.alt) }}
+    {{ end }}
+
     <div class="article-image">
         <a href="{{ .RelPermalink }}">
             {{ if $image.resource }}
@@ -22,10 +28,10 @@
                     {{ with $Srcset }}srcset="{{ . }}"{{ end }}
                     width="{{ $Width }}" 
                     height="{{ $Height }}" 
-                    loading="lazy"
-                    alt="Featured image of post {{ .Title }}" />
+                    loading="lazy" {{ $attrs | safeHTMLAttr  }} />
             {{ else }}
-                <img src="{{ $image.permalink }}" loading="lazy" alt="Featured image of post {{ .Title }}" />
+                <img src="{{ $image.permalink }}"
+                loading="lazy" {{ $attrs | safeHTMLAttr }} />
             {{ end }}
         </a>
     </div>

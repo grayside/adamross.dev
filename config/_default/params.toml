@@ -15,7 +15,6 @@ gitRepository = "https://github.com/grayside/adamross.dev"
 # Consider matching summaryLength from hugo.toml.
 searchSnippetSummaryLength = 70
 
-
 [outputs]
   home = ['html']
   page = ['html']
@@ -77,6 +76,12 @@ type = "toc"
 [opengraph.twitter]
 site = ""
 card = "summary_large_image"
+
+[defaultImage.article] 
+local = true
+enabled = true
+src = "img/cover-default.jpg"
+alt = "Dark gray-blue, puffy cloud across a wide slice of the sky, highlights from the setting sun touch the top of the clouds, and beam out beneath the cloud in golden light."
 
 [defaultImage.opengraph]
 enabled = false

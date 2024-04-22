@@ -34,12 +34,15 @@ section.callout {
     @import "partials/highlight/light.scss";
     section.callout-info {
         border-inline-start: var(--blockquote-border-size) solid $name-color; 
+        background-color: rgba($name-color, 0.05);
     }
     section.callout-important {
-        border-inline-start: var(--blockquote-border-size) solid $keyword-color; 
+        border-inline-start: var(--blockquote-border-size) solid $keyword-color;
+        background-color: rgba($keyword-color, 0.05);
     }
     section.callout-error {
         border-inline-start: var(--blockquote-border-size) solid $error-color; 
+        background-color: rgba($error-color, 0.05);
     }
 }
 
@@ -47,28 +50,31 @@ section.callout {
     @import "partials/highlight/dark.scss";
     section.callout-info {
         border-inline-start: var(--blockquote-border-size) solid $name-color; 
-        p:before {
-            content: "📗\2002"
-        }
+        // p:before {
+        //     content: "📗\2002"
+        // }
+        background-color: rgba($name-color, 0.05);
     }
 
 
     section.callout-important {
         border-inline-start: var(--blockquote-border-size) solid $keyword-color; 
-        p:before {
-            content: "📘\2002"
-        }
+        // p:before {
+        //     content: "📘\2002"
+        // }
+        background-color: rgba($keyword-color, 0.05);
     }
     section.callout-error {
         border-inline-start: var(--blockquote-border-size) solid $error-color; 
-        p:before {
-            content: "📕\2002"
-        }
+        // p:before {
+        //     content: "📕\2002"
+        // }
+        background-color: rgba($error-color, 0.05);
     }
 }
 
 footer.context {
-    display: flex;
+    display: inline;
     color: var(--card-text-color-tertiary);
     gap: 15px;
 }

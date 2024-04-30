@@ -1,7 +1,7 @@
 ---
 title: 'Why Automate?'
-date: '2024-04-08T18:00:55Z'
-publishDate: '2024-04-20T18:00:55Z'
+date: '2024-04-30T12:00:55Z'
+publishDate: '2024-04-30T12:00:55Z'
 # Description is used as a page subtitle & search index.
 description: 'Thinking through the value of automation beyond saving yourself time.'
 

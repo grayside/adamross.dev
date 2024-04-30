@@ -97,7 +97,7 @@
 
 {{ if eq .Type "opengraph" }}
     {{- if $result.resource }}
-        {{- $title := partialCached "data/title" .Context .RelPermalink -}}
+        {{- $title := partial "data/title" .Context .RelPermalink -}}
         {{ $size := 80 }}
         {{ if gt (len $title) 20 }}
         {{ $size = 70 }}

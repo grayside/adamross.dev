@@ -95,4 +95,33 @@
 
 {{ end }}
 
+{{ if eq .Type "opengraph" }}
+    {{- if $result.resource }}
+        {{- $title := partialCached "data/title" .Context .RelPermalink -}}
+        {{ $size := 80 }}
+        {{ if gt (len $title) 20 }}
+        {{ $size = 70 }}
+        {{ end }}
+
+        {{ $title = replaceRE `\s\(` " \n(" $title }}
+        {{ $title = replaceRE `\:\s` ":\n" $title }}
+
+        {{ $opts := (dict
+            "color" "#ffffff"
+            "size" $size
+            "linespacing" 8
+            "x" 60
+            "y" 80
+        )}}
+
+        {{ $result.resource }}
+
+        {{ $r := $result.resource.Fill "1200x600" }}
+        {{ $r = $r.Filter (images.GaussianBlur 8) (images.Pixelate 3) (images.Text $title $opts) }}
+        {{ $result = merge $result (dict "resource" $r) }}
+        {{ $result = merge $result (dict "permalink" $r.Permalink) }}
+        
+    {{ end }}
+{{ end }}
+
 {{ return $result }}

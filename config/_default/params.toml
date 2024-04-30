@@ -74,19 +74,19 @@ tagCloudMinUsage = 2 #custom
 type = "toc"
 
 [opengraph.twitter]
-site = ""
+site = "@grayside_sb"
 card = "summary_large_image"
 
 [defaultImage.article] 
-local = true
 enabled = true
+local = true
 src = "img/cover-default.jpg"
 alt = "Dark gray-blue, puffy cloud across a wide slice of the sky, highlights from the setting sun touch the top of the clouds, and beam out beneath the cloud in golden light."
 
 [defaultImage.opengraph]
-enabled = false
-local = false
-src = ""
+enabled = true
+local = true
+src = "img/cover-default.jpg"
 
 [colorScheme]
 toggle = true

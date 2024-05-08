@@ -52,7 +52,7 @@ jobs:
       # Placeholder site to facilitate preliminary deployment
       - run: |
           mkdir public
-          cat "Hello World" > public/index.html
+          echo "Hello World" > public/index.html
 
       # Need an initial deploy to generate the preview URL.
       # This is needed so hugo's baseURL can be configured.

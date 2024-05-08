@@ -51,6 +51,8 @@ jobs:
 
       - name: Build Site
         run: task build
+        env:
+          HUGO_BASEURL: 'https://adamross-devblog--pr${{ghContext.payload.pull_request.number}}.web.app'
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -58,3 +60,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ADAMROSS_DEVBLOG }}'
           expires: 30d
           projectId: adamross-devblog
+          channelId: 'pr${{ghContext.payload.pull_request.number}}'

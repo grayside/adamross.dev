@@ -49,10 +49,28 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      # Placeholder site to facilitate preliminary deployment
+      - run: |
+          mkdir public
+          echo "Hello World" > public/index.html
+
+      # Need an initial deploy to generate the preview URL.
+      # This is needed so hugo's baseURL can be configured.
+      - id: preliminary_deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ADAMROSS_DEVBLOG }}'
+          expires: 30d
+          projectId: adamross-devblog
+
       - name: Build Site
         run: task build
-
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        env:
+          HUGO_BASEURL: ${{ steps.preliminary_deploy.outputs.details_url }}
+  
+      - id: preview-deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ADAMROSS_DEVBLOG }}'

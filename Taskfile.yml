@@ -21,7 +21,10 @@ tasks:
   build:
     desc: 'Build site'
     cmds:
-      - hugo --minify --baseURL https://adamross.dev
+      - hugo --minify --baseURL "$HUGO_BASEURL"
+      - echo "$HUGO_BASEURL"
+    env:
+      HUGO_BASEURL: https://adamross.dev
 
   deploy:
     desc: 'Deploy site'
@@ -32,6 +35,11 @@ tasks:
   new-*:
     desc: 'Start a new {{.SECTION | default "post"}}. Run as "task new-<section> -- <content dir>'
     cmds:
-      - hugo new {{.SECTION}}/{{.CLI_ARGS}}/index.md
+      - hugo new {{.SECTION}}/{{now | date "2006"}}/{{.CLI_ARGS}}/index.md
     vars:
       SECTION: '{{index .MATCH 0}}'
+
+  compress-image:
+    desc: Convert image to webp and compress.
+    cmds:
+      - convert -quality 50 {{.CLI_ARGS}} {{ dir .CLI_ARGS }}/cover.png

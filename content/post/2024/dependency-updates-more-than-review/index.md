@@ -14,6 +14,10 @@ tags:
   - renovate
   - testing
 
+mastodon:
+  tags:
+    - devblog
+
 draft: false # hide from production deployment
 hidden: false # hide from lists if true
 rssFullContent: true
@@ -30,11 +34,11 @@ imageCredit: |
 # canonicalTitle: Example Article Title
 
 context: | 
-  > **Perspective:** I've been using Renovate (a lot) and Dependabot (some) for years, in dozens of repositories, with everything from near defaults to elaborate configurations. I believe some maintenance challenges have come from not examining automated dependency updates closely enough before merge.
+  > **Perspective:** I've used Renovate (a lot) and Dependabot (some) for years, in dozens of repositories, with everything from near defaults to elaborate configurations. Not examining automated dependency updates closely enough before merge have created extra maintenance work.
 
 ---
 
-I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They really save my team a lot of time. With a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is helpful, powerful even, and not the most time consuming part of maintaining a project's 3rd party dependencies.
+I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They save my team a lot of time: with a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is a mostly helpful and definitely transformative change to how I see teams handle 3rd party updates.
 
 {{< callout info >}}👋 This post isn't about saving time by scheduling and grouping dependency updates, though those are great things to consider.{{</ callout >}}
 
@@ -44,24 +48,28 @@ They help in the following ways:
 
 * Notify project maintainers that a dependency has an update
 * Modify the project's package manifest to reference the updated code
-* Open a Pull Request and inline some context on the change
+* Open a Pull Request and highlight some context on the change
 * and Trigger your automated tests
+
+When I start my day and look at a Pull Request created by a tool like this, I may see a lot of encouraging green checkmarks ✅ declaring merge-worthiness.
 
 ## The tools did all the work, I can review & merge, right?
 
-No–the tools can set me up to confirm a best case scenario or dig deeper. Even recognizing the best case is tricky. Let's start with some basic questions:
+Seeing green checkmarks is necessary but not sufficient to merge. Automated checks can safely tell me where to prioritize review time. As the human in the loop, I should verify:
 
 1. Did the automated tests pass?
-2. Do I recall if there's a problem with the library's previous updates? Maybe I should manually test the change.
-3. Does the package follow [semantic versioning](https://semver.org/) and can I tell whether this is a major update? Maybe there's a compatibility break to consider.
+2. Do I recall a problem with this library's previous updates? Maybe I should manually test the change.
+3. Does the package follow [semantic versioning](https://semver.org/)? Can I recognize a major update that might break compatibility in unanticipated and untested ways?
 
 With answers "Yes", "No Problem", and "No", I could just merge...
 
-🛑 WAIT. I've left something out: _I know that I don't have 100% test coverage_. Does that mean the passing tests are because the change is good, or because this dependency update sits in a test coverage gap and I have no idea what will happen next? 
+🛑 WAIT. I've left something out: _I know that I don't have 100% test coverage_. Are the tests passing because the change is good, or because there is a test coverage gap and I have no idea what will happen next?
 
 The question _"Did the automated tests pass?"_ becomes _"Is there automated test coverage in my project and does it cover the use of this dependency? Did those tests pass?"_
 
-### Let's see an example of untested dependencies slipping through
+## Let's see an example of untested dependencies slipping through
+
+In this example, suppose a dependency called _ThirdPartyAuth_ is an important part of the business logic.
 
 ```js
 // Important business logic that takes a callback/function parameter.
@@ -70,7 +78,9 @@ doGoodThings(maybeAMockedRequest) {
 }
 ```
 
-#### No Test
+### Test Example #1: No Test
+
+Test success reported with no tests run. Do I remember during code review?
 
 ```js
 // Test_doGoodThings()
@@ -78,7 +88,9 @@ doGoodThings(maybeAMockedRequest) {
 ✔️ Success // No tests were run.
 ```
 
-#### Mocked Test
+### Test Example #2: Mocked Test
+
+The code that uses the _ThirdPartyAuth_ is mocked. The test does not cover how the library is integrated with the request code.
 
 ```js
 MockRequest() {
@@ -90,7 +102,10 @@ Test_doGoodThings(MockRequest)
 ✔️ Success // What does that mean?
 ```
 
-#### End-to-End Test
+### Test Example #3: End-to-End Test
+
+The integration of `ThirdPartyAuth.coolLibraryAuthV2()` with the codebase is verified.
+If the test fails there may be a breaking change in the library.
 
 ```js
 RealRequest() {
@@ -101,28 +116,30 @@ RealRequest() {
 }
 Test_doGoodThings(Request)
 
-✅ Success // Can we flake towards a false positive?
+✅ Success // Is the test more likely to fail with a false positive or false negative?
 ```
 
-In the mocked test, the dependency <strong>3rdPartyAuth </strong>isn't tested. In the end-to-end test, the library and my use of <code>coolLibraryAuthV2</code> is verified, so I'll notice a breaking change. Of course, the "No Test" case tells me nothing but I still might need to dig into the test results to remember the gap.
+The value of the ✅ passing test is limited by the depth of test coverage and my knowledge of the limitation. No only me: since my team handles maintenance on a rotating basis, the value of the tests depends on how well each teammate understands those limitations.
 
-Suddenly the value of the ✅ green checkmark of a passing test is limited by my knowledge of the project. Not only me, since my team handles this kind of maintenance on a rotating basis. The value of that green check really depends on how well all my teammates understand the mapping of test coverage to 3rd party code.
+## Functionality not broken, but update not complete
 
-## Functionality isn't broken, but the update isn't complete
+Just because a library works doesn't mean it's used effectively.
 
-Just because a library is still working doesn't mean I'm holding it right.
-
-It turns out that if dependencies change over time, they are likely to have new methods, recommended patterns, and planned deprecations on old ways of working. Upgrading the version of a dependency incurs technical debt if the project continues using code slated for deprecation.
+When a dependency changes over time, it is likely to have new methods, recommended usage patterns, and planned deprecations on old ways of working. Upgrading the version of a dependency incurs *technical debt* if the project continues using code slated for deprecation.
 
 **Today's outdated practice is tomorrow's deprecated design.**
 
-Given this, I might merge the update, but I should also evaluate if there are more changes to make, and whether those changes have meaningful value or go into a tech debt backlog. (I prefer anticipated debt to surprise debt, so that I can plan how to handle the work on my own terms.)
+Give that the way I'm using the dependency works I might merge the update. However, if I might be using it counter to recommendations, I should also evaluate if there are more change to make, and if those changes matter in the short term or should go into a tech debt backlog. (I prefer anticipated debt to surprise debt, so that I can plan how to handle the work on my own terms.)
 
 ## Call to Action
 
-Passing tests can be deceptive, and package manifests aren't the only spot in your codebase likely to need changes. There's more work than what the robots do for you.
+Passing tests can be deceptive, and package manifests aren't the only spot in your codebase likely to need changes when a big update happens.
 
-In terms of Renovate config, maybe add some [extra configuration so those Pull Requests include a reminder](https://docs.renovatebot.com/configuration-options/#prbodynotes):
+{{< callout important >}}
+**💡 There's more work than what robots can do for you.**
+{{< /callout >}}
+
+In terms of Renovate configuration, maybe add some [extra guidance to those Pull Requests](https://docs.renovatebot.com/configuration-options/#prbodynotes):
 
 ```json
 {

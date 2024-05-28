@@ -11,12 +11,9 @@ tags:
   - code reviews
   - dependencies
   - supply chain
-  - renovate
-  - testing
-
-mastodon:
-  tags:
-    - devblog
+  - renovatebot
+  - test coverage
+  - shared knowledge
 
 draft: false # hide from production deployment
 hidden: false # hide from lists if true
@@ -38,28 +35,28 @@ context: |
 
 ---
 
-I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They save my team a lot of time: with a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is a mostly helpful and definitely transformative change to how I see teams handle 3rd party updates.
+I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They save my team a lot of time: with a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is a mostly helpful and big change to how I see teams handle 3rd party updates.
 
 {{< callout info >}}👋 This post isn't about saving time by scheduling and grouping dependency updates, though those are great things to consider.{{</ callout >}}
 
-## Let's get on the same page, what do dependency automation tools do?
+## Let's get on the same page, what do these dependency automation tools do?
 
 They help in the following ways:
 
 * Notify project maintainers that a dependency has an update
 * Modify the project's package manifest to reference the updated code
 * Open a Pull Request and highlight some context on the change
-* and Trigger your automated tests
+* and because you have CI set up, they trigger your automated tests
 
 When I start my day and look at a Pull Request created by a tool like this, I may see a lot of encouraging green checkmarks ✅ declaring merge-worthiness.
 
 ## The tools did all the work, I can review & merge, right?
 
-Seeing green checkmarks is necessary but not sufficient to merge. Automated checks can safely tell me where to prioritize review time. As the human in the loop, I should verify:
+Seeing green checkmarks is necessary but not sufficient to merge. I trust automated checks to tell me where to prioritize my review time. As the human in the loop, I should verify:
 
 1. Did the automated tests pass?
 2. Do I recall a problem with this library's previous updates? Maybe I should manually test the change.
-3. Does the package follow [semantic versioning](https://semver.org/)? Can I recognize a major update that might break compatibility in unanticipated and untested ways?
+3. Does the package follow [semantic versioning](https://semver.org/)? A major update breaks compatibility, what other changes to the code are necessary?
 
 With answers "Yes", "No Problem", and "No", I could just merge...
 
@@ -69,13 +66,22 @@ The question _"Did the automated tests pass?"_ becomes _"Is there automated test
 
 ## Let's see an example of untested dependencies slipping through
 
-In this example, suppose a dependency called _ThirdPartyAuth_ is an important part of the business logic.
+In this example, suppose a dependency called _ThirdPartyAuth_ is an important part of the business logic. Below I'll show some of the potential misunderstandings from different testing strategies.
 
 ```js
 // Important business logic that takes a callback/function parameter.
-doGoodThings(maybeAMockedRequest) {
-  maybeAMockedRequest()
+doGoodThings(maybeAMockedRequestFunction) {
+  maybeAMockedRequestFunction()
 }
+
+RealRequest() {
+  return http_request(
+    'https://example.com',
+    ThirdPartyAuth.coolLibraryAuthV2()
+  )
+}
+
+doGoodThings(RealRequest)
 ```
 
 ### Test Example #1: No Test
@@ -83,21 +89,24 @@ doGoodThings(maybeAMockedRequest) {
 Test success reported with no tests run. Do I remember during code review?
 
 ```js
+// A commented out test stub.
 // Test_doGoodThings()
 
-✔️ Success // No tests were run.
+✔️ Success // No tests were run
 ```
 
 ### Test Example #2: Mocked Test
 
-The code that uses the _ThirdPartyAuth_ is mocked. The test does not cover how the library is integrated with the request code.
+End-to-end testing can be expensive to write and much more expensive to maintain. Perhaps in testing, the end-to-end request could be mocked, and the tests scoped to the business logic on top of that response?
+
+This test does not cover the use of the _ThirdPartyAuth_ library.
 
 ```js
 MockRequest() {
   return "OK"
 }
 
-Test_doGoodThings(MockRequest) 
+Test_doGoodThings(MockRequest)
 
 ✔️ Success // What does that mean?
 ```
@@ -105,38 +114,34 @@ Test_doGoodThings(MockRequest)
 ### Test Example #3: End-to-End Test
 
 The integration of `ThirdPartyAuth.coolLibraryAuthV2()` with the codebase is verified.
-If the test fails there may be a breaking change in the library.
+If the test fails it may be a breaking change in the library or perhaps `https://example.com` is down.
 
 ```js
-RealRequest() {
-  return http_request(
-    'https://example.com',   
-    ThirdPartyAuth.coolLibraryAuthV2()
-  )
-}
-Test_doGoodThings(Request)
+Test_doGoodThings(RealRequest)
 
-✅ Success // Is the test more likely to fail with a false positive or false negative?
+✅ Success // Probability of false negative > false positive
 ```
 
 The value of the ✅ passing test is limited by the depth of test coverage and my knowledge of the limitation. No only me: since my team handles maintenance on a rotating basis, the value of the tests depends on how well each teammate understands those limitations.
 
 ## Functionality not broken, but update not complete
 
-Just because a library works doesn't mean it's used effectively.
+Just because a library works doesn't mean it is used effectively.
 
-When a dependency changes over time, it is likely to have new methods, recommended usage patterns, and planned deprecations on old ways of working. Upgrading the version of a dependency incurs *technical debt* if the project continues using code slated for deprecation.
+When a dependency has significant changes over time, it likely gains new methods, recommended usage patterns, and planned deprecations on old ways of working. Upgrading the version of a dependency incurs *technical debt* if the project continues using code slated for deprecation.
 
+{{< callout info >}}
 **Today's outdated practice is tomorrow's deprecated design.**
+{{< /callout >}}
 
-Give that the way I'm using the dependency works I might merge the update. However, if I might be using it counter to recommendations, I should also evaluate if there are more change to make, and if those changes matter in the short term or should go into a tech debt backlog. (I prefer anticipated debt to surprise debt, so that I can plan how to handle the work on my own terms.)
+If the dependency works I might merge the update. However, if I might be using it outside maintainer recommendations,  I should also evaluate if there are more changes to make. I should answer: do those changes matter now, or are these notes for an issue backlog? (I prefer anticipated technical debt to surprise debt, so that I can plan how to handle the work on my own terms.)
 
 ## Call to Action
 
 Passing tests can be deceptive, and package manifests aren't the only spot in your codebase likely to need changes when a big update happens.
 
 {{< callout important >}}
-**💡 There's more work than what robots can do for you.**
+**💡 There's more work than what robots can do for you.** You _do not need_ deeper test coverage. You and your collaborators _do need_ a common understanding of the limits of what a passing test means, and what needs to happen to keep shipping quality software after automated testing has done what it could.
 {{< /callout >}}
 
 In terms of Renovate configuration, maybe add some [extra guidance to those Pull Requests](https://docs.renovatebot.com/configuration-options/#prbodynotes):

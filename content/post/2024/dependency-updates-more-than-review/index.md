@@ -97,7 +97,7 @@ Test success reported with no tests run. Do I remember during code review?
 
 ### Test Example #2: Mocked Test
 
-End-to-end testing can be expensive to write and much more expensive to maintain. Perhaps in testing, the end-to-end request could be mocked, and the tests scoped to the business logic on top of that response?
+End-to-end testing can be expensive to write and much more expensive to maintain. Instead, we could mock the responses from external APIs and scope the tests to local business logic.
 
 This test does not cover the use of the _ThirdPartyAuth_ library.
 
@@ -129,13 +129,9 @@ The value of the ✅ passing test is limited by the depth of test coverage and m
 
 Just because a library works doesn't mean it is used effectively.
 
-When a dependency has significant changes over time, it likely gains new methods, recommended usage patterns, and planned deprecations on old ways of working. Upgrading the version of a dependency incurs *technical debt* if the project continues using code slated for deprecation.
+When a dependency has significant changes over time, it likely gains new methods, recommended usage patterns, and planned deprecations on old ways of working. Upgrading the dependency without understanding the new, happy paths sets up a future with a broken update.
 
-{{< callout info >}}
 **Today's outdated practice is tomorrow's deprecated design.**
-{{< /callout >}}
-
-If the dependency works I might merge the update. However, if my usage is outside maintainer recommendations, I should check if there are more changes to make. If there are more changes worth making, do they matter now, or are these notes for the project backlog? (I prefer anticipated technical debt to surprise debt, so that I can plan how to handle the work on my own terms.)
 
 ## Call to Action
 

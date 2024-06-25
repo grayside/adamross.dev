@@ -35,11 +35,11 @@ context: |
 
 ---
 
-I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They save my team a lot of time: with a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is a mostly helpful and big change to how I see teams handle 3rd party updates.
+I enjoy tools that automate dependency updates in my projects (looking at you, Renovate and Dependabot). They save my team a lot of time: with a quick glance and the push of a couple buttons, I can update dozens of dependencies in a repository. Even better, the work came to me, I didn't need to go looking for release schedules or subscribe to a newsletter. This is a big change to how I see teams handle 3rd party updates.
 
-{{< callout info >}}👋 This post isn't about saving time by scheduling and grouping dependency updates, though those are great things to consider.{{</ callout >}}
+Merging an update just because the tests pass creates a mess.
 
-## Let's get on the same page, what do these dependency automation tools do?
+## Context: What do these dependency automation tools do?
 
 They help in the following ways:
 
@@ -55,8 +55,8 @@ When I start my day and look at a Pull Request created by a tool like this, I ma
 Seeing green checkmarks is necessary but not sufficient to merge. I trust automated checks to tell me where to prioritize my review time. As the human in the loop, I should verify:
 
 1. Did the automated tests pass?
-2. Do I recall a problem with this library's previous updates? Maybe I should manually test the change.
-3. Does the package follow [semantic versioning](https://semver.org/)? A major update breaks compatibility, what other changes to the code are necessary?
+2. Does the library have a history of causing trouble? Maybe I should manually test the change.
+3. Does the package follow [semantic versioning](https://semver.org/)? Is their a compatibility break from a major update? What if the break doesn't change the API specification, but critical details in the payload data?
 
 With answers "Yes", "No Problem", and "No", I could just merge...
 
@@ -114,6 +114,7 @@ Test_doGoodThings(MockRequest)
 ### Test Example #3: End-to-End Test
 
 The integration of `ThirdPartyAuth.coolLibraryAuthV2()` with the codebase is verified.
+
 If the test fails it may be a breaking change in the library or perhaps `https://example.com` is down.
 
 ```js
@@ -134,14 +135,14 @@ When a dependency has significant changes over time, it likely gains new methods
 **Today's outdated practice is tomorrow's deprecated design.**
 {{< /callout >}}
 
-If the dependency works I might merge the update. However, if I might be using it outside maintainer recommendations,  I should also evaluate if there are more changes to make. I should answer: do those changes matter now, or are these notes for an issue backlog? (I prefer anticipated technical debt to surprise debt, so that I can plan how to handle the work on my own terms.)
+If the dependency works I might merge the update. However, if my usage is outside maintainer recommendations, I should check if there are more changes to make. If there are more changes worth making, do they matter now, or are these notes for the project backlog? (I prefer anticipated technical debt to surprise debt, so that I can plan how to handle the work on my own terms.)
 
 ## Call to Action
 
-Passing tests can be deceptive, and package manifests aren't the only spot in your codebase likely to need changes when a big update happens.
+Passing tests can be deceptive, and package manifests aren't the only spot in your codebase to need changes when a big update happens.
 
 {{< callout important >}}
-**💡 There's more work than what robots can do for you.** You _do not need_ deeper test coverage. You and your collaborators _do need_ a common understanding of the limits of what a passing test means, and what needs to happen to keep shipping quality software after automated testing has done what it could.
+**💡 The robots cannot do all the necessary work to update a dependency safely** You _do not need_ deeper test coverage. You and your collaborators _do need_ a common understanding of the limits of what a passing test means, and what needs to happen to keep shipping quality software after automated testing has done what it could.
 {{< /callout >}}
 
 In terms of Renovate configuration, maybe add some [extra guidance to those Pull Requests](https://docs.renovatebot.com/configuration-options/#prbodynotes):

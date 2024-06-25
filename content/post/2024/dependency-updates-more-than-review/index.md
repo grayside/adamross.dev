@@ -138,13 +138,13 @@ When a dependency has significant changes over time, it likely gains new methods
 Passing tests can be deceptive, and package manifests aren't the only spot in your codebase to need changes when a big update happens.
 
 {{< callout important >}}
-**💡 The robots cannot do all the necessary work to update a dependency safely** You _do not need_ deeper test coverage. You and your collaborators _do need_ a common understanding of the limits of what a passing test means, and what needs to happen to keep shipping quality software after automated testing has done what it could.
+**💡 The robots cannot do all the necessary work to update a dependency safely.** You _do not need_ deeper test coverage. You and your collaborators _do need_ a common understanding of the limits of what a passing test means, and what needs to happen to keep shipping quality software after automated testing has done what it could.
 {{< /callout >}}
 
 In terms of Renovate configuration, maybe add some [extra guidance to those Pull Requests](https://docs.renovatebot.com/configuration-options/#prbodynotes):
 
 ```json
 {
-  "prBodyNotes": "Do the automated tests cover this dependency? How big was this change? You may have more work to do."
+  "prBodyNotes": "Do the tests cover this dependency? You may have more work to do."
 }
 ```

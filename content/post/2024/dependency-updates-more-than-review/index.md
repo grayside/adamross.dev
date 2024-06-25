@@ -48,7 +48,7 @@ They help in the following ways:
 * Open a Pull Request and highlight some context on the change
 * and because you have CI set up, they trigger your automated tests
 
-When I start my day and look at a Pull Request created by a tool like this, I may see a lot of encouraging green checkmarks ✅ declaring merge-worthiness.
+When I start my day and look at a Pull Request created by a tool like this, I may see a lot of encouraging green checkmarks✅ declaring merge-worthiness.
 
 ## The tools did all the work, I can review & merge, right?
 
@@ -60,7 +60,9 @@ Seeing green checkmarks is necessary but not sufficient to merge. I trust automa
 
 With answers "Yes", "No Problem", and "No", I could just merge...
 
+{{< callout important >}}
 🛑 WAIT. I've left something out: _I know that I don't have 100% test coverage_. Are the tests passing because the change is good, or because there is a test coverage gap and I have no idea what will happen next?
+{{< /callout >}}
 
 The question _"Did the automated tests pass?"_ becomes _"Is there automated test coverage in my project and does it cover the use of this dependency? Did those tests pass?"_
 

@@ -3,7 +3,7 @@ title: 'Dependency Updates: More to Do Than Review'
 date: '2024-05-01T05:31:53Z'
 publishDate: '2024-05-06T05:31:53Z'
 # Description is used as a page subtitle & search index.
-description: 'Dependency update tooling is fantastic but you still own code stability.'
+description: 'Code stability takes work and communication even with automated dependency updates.'
 
 categories:
   - Post

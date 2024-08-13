@@ -62,11 +62,13 @@ Every project has requirements, here are a few of mine:
 
 Chosen option **Option 1: Firebase Hosting**
 
-Firebase Hosting is a specialized tool for static site hosting, providing ease of deployment, a global CDN, and a good free tier. I have a lot of familiarity with Google Cloud, but less familiarity with the Firebase products. This provides an opportunity to broaden my knowledge.
+Firebase Hosting is a specialized tool for static site hosting, providing ease of deployment, a global CDN, and a good free tier. I have a lot of familiarity with Google Cloud, but less familiarity with the Firebase products.
 
 {{< callout info >}}
 Working for Google means my day job pays me to be familiar with Google Cloud, which may lead me to use Google Cloud for more personal projects. This gives Firebase Hosting some advantage in the decision.
 {{</callout>}}
+
+I'm choosing Firebase Hosting because it meets all my requirements and broadens my knowledge of Google Cloud.
 
 ### Alternatives Considered
 
@@ -74,15 +76,21 @@ I have experience hosting sites on **Option 2: GitHub Pages**. However, I have b
 
 I've found GitHub Pages to be a bit complex for PR Previews, with various advice around multiple repositories, random & niche GitHub Actions, or building your own [custom preview solution](https://github.com/grayside/gh-page-previews).
 
-**Option 3: Use Google Cloud Run.** With 6 years of experience working on the developer experience of Google Cloud Run, using it would be straightforward. I don't need (or want) the control over the serving details. The other options align more with my preference to minimize maintenance. 
+I'm not choosing GitHub Pages because it's missing features I want.
+
+**Option 3: Use Google Cloud Run.** With 6 years of experience working on the developer experience of Google Cloud Run, using it would be straightforward. I don't need (or want) the control over the serving details like which web server is running. The other options are better aligned with my preference for minimal maintenance.
 
 {{< callout info >}}💡 My teammate Brian Dorsey has a great post on [hosting a static website using Google Cloud Run](https://til.cafe/blog/2024/hosting-static-web-site-using-google-cloud-run/) if you'd like a recipe.{{</callout>}}
 
-**Option 4: Use Netlify.** Several folks recommended Netlify as their preferred static site host, with strong GitHub integration. Since I am already using Google Cloud for other projects, Netlify has a disadvantage as a new service provider. If Firebase Hosting doesn't work out, Netlify would be my next choice. I don't want to pick up a new infrastructure hobby.
+I'm not choosing Cloud Run because I want more abstraction away from the technical details. I don't want to pick up a new infrastructure hobby.
+
+**Option 4: Use Netlify.** Several folks recommended Netlify as their preferred static site host, with strong GitHub integration. Since I am already using Google Cloud for other projects, Netlify has a disadvantage as a new service provider.
+
+If Firebase Hosting doesn't work out, Netlify would be my next choice. It was a close decision.
 
 ### Expected Consequences
 
-Any of these options will meet my goal of serving a few megabytes of data. I expect problems to come from pet peeves or curiousity about the alternatives. Either way, this is a **_low stakes decision not worth a deep analysis_**. If I had to change my decision, I expect the switching cost to move to another static site host to be an evening of work.
+Any of these options will meet my goal of serving a few megabytes of data. I expect problems to come from pet peeves or curiousity about the alternatives. Either way, this is a **_low stakes decision not worth a deeper analysis_**. If I had to change my decision, I expect the switching cost to move to another static site host to be an evening of work.
 
 ## Revisiting this Decision
 

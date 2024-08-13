@@ -1,9 +1,9 @@
 ---
-title: 'Where to Self-Host My Static Tech Blog'
+title: 'Where to Host My Static Tech Blog'
 date: '2024-07-31T19:26:11Z'
-publishDate: '2024-07-31T19:26:11Z'
+publishDate: '2024-08-13T12:00:00Z'
 # Description is used as a page subtitle & search index.
-description: 'My decision-making process to use Firebase Hosting with my Hugo site.'
+description: 'Decision-making process to use Firebase Hosting with my Hugo site.'
 
 categories:
   - Decision
@@ -14,7 +14,7 @@ tags:
   - web hosting
   - arc.0
 
-draft: true # hide from production deployment
+draft: false # hide from production deployment
 hidden: false # hide from lists if true
 rssFullContent: true
 

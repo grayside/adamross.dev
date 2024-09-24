@@ -15,7 +15,7 @@ tags:
   - gcloud
   - oauth
 
-draft: true # hide from production deployment
+draft: false # hide from production deployment
 hidden: false # hide from lists if true
 rssFullContent: true
 

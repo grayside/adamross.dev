@@ -78,7 +78,8 @@ Operation "operations/acat.p2-480745230567-02564c8d-c6ba-4f60-90bd-13f33e41f0fe"
 Set your **application default credentials**, also claiming some non-default OAuth scopes so the credential can be used with sheets:
 
 ```sh
-$> gcloud auth application-default login --scopes \ 'https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/drive,https://www.googleapis.com/auth/spreadsheets'
+$> gcloud auth application-default login --scopes \
+   'https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/drive,https://www.googleapis.com/auth/spreadsheets'
 ```
 
 This will trigger an OAuth flow that involves visiting a webpage in your browser. Depending on the terminal configuration this may display a URL or even open the page.

@@ -36,19 +36,21 @@ Recently I needed to pull data from the GitHub API and publish to a Google Sheet
 so I could share some charts about code review workload. This post is about how
 I got authentication working.
 
-I wrote a Node.js script because this was too much for BASH and not big enough
-for Go. Initially, the script generated ad hoc CSV data that I could manually
-copy into Google Sheets using the Paste-as-CSV feature. I decided after a few
-rounds that I didn't want to do that: I estimated that I could get a Sheets
-integration working within a couple hours and if so that would
+I wrote a Node.js script because my use case was too complex for BASH and
+seemed too temporary for Go. Initially, the script generated ad hoc CSV data
+that I could manually copy into Google Sheets using the Paste-as-CSV feature.
+After a few rounds of manually copying, I wanted to use my time wisely: I
+estimated that I could get a Sheets integration working within a couple hours
+and if so that would
 [probably pay off within a few months](https://dev.to/grayside/why-automate-1fac).
 
 {{< callout important >}}
-Aside: Sheets isn't my database. It's my data reporting UI. *Don't use Sheets as your database.*
+**Aside:** Sheets isn't my database. It's my data reporting UI.
+*Don't use Sheets as your database.*
 {{</ callout >}}
 
-It took me much more time to get this working because authentication and data
-races are hard. This post shows the more direct path to a working solution.
+It took me closer to 4 hours to get this working, because authentication is
+hard. This post shows the more direct path to a working solution.
 
 It's easy to be distracted with the complexity of
 [creating an oAuth application](https://developers.google.com/workspace/guides/configure-oauth-consent),
@@ -73,7 +75,7 @@ $> gcloud services enable sheets.googleapis.com
 Operation "operations/acat.p2-480745230567-02564c8d-c6ba-4f60-90bd-13f33e41f0fe" finished successfully.
 ```
 
-Set your application default credentials, also claiming some non-default OAuth scopes so the credential can be used with sheets:
+Set your **application default credentials**, also claiming some non-default OAuth scopes so the credential can be used with sheets:
 
 ```sh
 $> gcloud auth application-default login --scopes \ 'https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/drive,https://www.googleapis.com/auth/spreadsheets'
@@ -104,9 +106,16 @@ function sheetsClient() {
 
 ### 🖇 Append data to the sheet
 
-While I needed to go my own way for authentication, appending to the sheet worked exactly as presented in the bottom half of the [append sample in the Sheets API documentation](https://developers.google.com/sheets/api/guides/values#append_values). (The result from my `sheetsClient` function above is the `service` object defined in the code sample.)
+The sample from the docs on how to
+[append data to the sheet](https://developers.google.com/sheets/api/guides/values#append_values)
+(click on Node.js tab) worked well. However, I couldn't understand how to get
+authentication working from there. The sample worked once I understood the
+trick above to add the missing OAuth scopes to my dev environment credentials.
 
-In my code, this looks like:
+I made a few changes to enable easier reuse of the client, parameterize the
+request differently, and emphasize how I wanted the data handled by Sheets.
+
+My code to append data to the sheet, leveraging the client initialization code above:
 
 ```js
 let client;
@@ -120,6 +129,7 @@ async function appendDataToSheet(spreadsheetId, tab, values) {
         const result = await client.spreadsheets.values.append({
             spreadsheetId,
             range: `${tab}!A2:AG`,
+            // Use my data as provided.
             valueInputOption: 'RAW',
             // Inserts rows as part of appending to reduce overwrites.
             insertDataOption: 'INSERT_ROWS',
@@ -134,6 +144,8 @@ async function appendDataToSheet(spreadsheetId, tab, values) {
 }
 ```
 
+I'm using "append" because my script collects monthly metrics, and append allows me to add new rows without removing earlier rows.
+
 Here's an example of how to call the `appendDataToSheet()` function:
 
 ```js
@@ -142,7 +154,7 @@ const values = [
   [1, 2, 3, 4, 'luggage'],
   [4, 5, 6, 'N/A', 'sticks'],
 ];
-appendDataToSheet('HPDkfqdu6rfIq5-4uTGDqz2tvmPxDZXul27JFsb2ZRwn', 'Exported Data Tab', values);
+appendDataToSheet('HPDkfqdu6rfIq5-4uTGDqz2tvmPxDZMul27JFexample', 'Exported Data Tab', values);
 ```
 
 There are some good tips about working with the

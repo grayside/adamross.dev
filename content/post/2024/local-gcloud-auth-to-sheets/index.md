@@ -1,5 +1,6 @@
 ---
 title: 'Write to Google Sheets from a local script via gcloud CLI authentication'
+slug: 'local-gcloud-auth-to-sheets'
 date: '2024-09-25T17:48:17Z'
 publishDate: '2024-09-25T17:48:17Z'
 # Description is used as a page subtitle & search index.

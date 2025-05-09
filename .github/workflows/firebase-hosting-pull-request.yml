@@ -18,21 +18,21 @@ jobs:
         group: ${{ github.workflow }}-${{ github.ref }}
         
     steps:
-      - uses: actions/setup-go@v4
+      - uses: actions/setup-go@v5
         with:
-            go-version: "^1.21.0"
+            go-version: "^1.24.0"
 
       - name: Install Task
         uses: arduino/setup-task@v2
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
 
       - name: Cache Hugo resources
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
             cache-name: cache-hugo-resources
         with:
@@ -40,7 +40,7 @@ jobs:
             key: ${{ env.cache-name }}
 
       - name: Cache Hugo Modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /home/runner/.cache/hugo_cache    # <-- with hugo version v0.116.0 and above
           key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}

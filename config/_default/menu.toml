@@ -11,15 +11,23 @@
 identifier = "github"
 name = "GitHub"
 url = "https://github.com/grayside"
-weight = 25
+weight = 10
 [social.params]
 icon = "brand-github"
+
+[[social]]
+identifier = "bluesky"
+name = "Bluesky"
+url = "https://bsky.app/profile/adamross.dev"
+weight = 20
+[social.params]
+icon = "brand-bluesky"
 
 [[social]]
 identifier = "mastodon"
 name = "Mastodon"
 url = "https://hachyderm.io/@grayside"
-weight = 50
+weight = 40
 [social.params]
 icon = "brand-mastodon"
 
@@ -27,6 +35,6 @@ icon = "brand-mastodon"
 identifier = "rss"
 name = "RSS Feed"
 url = "/index.xml"
-weight = 100
+weight = 50
 [[social.params]]
 icon = "rss"

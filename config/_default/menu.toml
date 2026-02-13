@@ -16,14 +16,6 @@ weight = 25
 icon = "brand-github"
 
 [[social]]
-identifier = "twitter"
-name = "Twitter"
-url = "https://twitter.com/grayside_sb"
-weight = 75
-[social.params]
-icon = "brand-twitter"
-
-[[social]]
 identifier = "mastodon"
 name = "Mastodon"
 url = "https://hachyderm.io/@grayside"

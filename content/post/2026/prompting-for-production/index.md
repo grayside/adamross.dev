@@ -1,8 +1,7 @@
 ---
-# TODO: Override title for URL slug.
 title: 'How My Team Aligns on Prompting for Production'
-date: '2026-02-13T18:38:27Z'
-publishDate: '2026-02-13T18:38:27Z'
+date: '2026-02-17T16:39:34Z'
+publishDate: '2026-02-17T16:39:34Z'
 # Description is used as a page subtitle & search index.
 description: "Develop prompts embedded in your codebase with rigor. Don't go alone!"
 slug: 'prompting-for-production'
@@ -31,7 +30,7 @@ rssFullContent: true
 image: cover.jpg
 
 imageCredit: |
-  Photo by <a href="https://unsplash.com/@jeton7?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeton Bajrami</a> on <a href="https://unsplash.com/photos/a-group-of-people-rowing-a-boat-in-the-water-d4e2mitxgsE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  Cover Photo by <a href="https://unsplash.com/@jeton7?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeton Bajrami</a> on <a href="https://unsplash.com/photos/a-group-of-people-rowing-a-boat-in-the-water-d4e2mitxgsE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
   
 ---

@@ -1,5 +1,5 @@
 # Args used in container tags:
-ARG NODE_VERSION=20
+ARG NODE_VERSION=26
 
 # This is the official docker image for Vale, defined in https://github.com/errata-ai/vale/blob/v3/Dockerfile
 FROM jdkato/vale:latest AS vale

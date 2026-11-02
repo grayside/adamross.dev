@@ -31,11 +31,7 @@ lastUpdated = "2006 January 02 - 15:04 PST"
 [sidebar]
 emoji = ""
 subtitle = "Writing about code, teamwork, and entropy"
-
-[sidebar.avatar]
-enabled = true
-local = true
-src = "img/avatar.png"
+avatar = "img/avatar.png"
 
 [article]
 math = false
@@ -45,30 +41,27 @@ readingTime = true
 enabled = false
 default = "Licensed under CC BY-NC-SA 4.0"
 
-## Widgets
-[[widgets.homepage]]
-# Disabling search widget, preferring only the dedicated search page.
-#type = "search"
+# Widgets
+# Disabling search widget, preferring only the dedicated search page:
+# [[widgets.homepage]]
+# type = "search"
 
 [[widgets.homepage]]
 type = "archives"
+    [widgets.homepage.params]
+    limit = 5
 
-[widgets.homepage.params]
-limit = 5
-
-[[widgets.homepage]]
-# Disabling categories widget: I'm not ready to use it yet.
-#type = "categories"
-
-[widgets.homepage.params]
-limit = 10
+# Disabling categories widget: I'm not ready to use it yet:
+# [[widgets.homepage]]
+# type = "categories"
+#     [widgets.homepage.params]
+#     limit = 10
 
 [[widgets.homepage]]
 type = "tag-cloud"
-
-[widgets.homepage.params]
-limit = 10
-tagCloudMinUsage = 2 #custom
+    [widgets.homepage.params]
+    limit = 10
+    tagCloudMinUsage = 2 #custom
 
 [[widgets.page]]
 type = "toc"
@@ -92,7 +85,7 @@ src = "img/cover-default.jpg"
 toggle = true
 default = "dark" # built-in default is auto
 
-[imageProcessing.cover]
+[imageProcessing.thumbnail]
 enabled = true
 
 [imageProcessing.content]

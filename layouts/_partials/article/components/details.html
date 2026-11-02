@@ -1,7 +1,14 @@
+{{- $IsList := false -}}
+{{- $Page := . -}}
+{{- if reflect.IsMap . -}}
+    {{- $IsList = default false .IsList -}}
+    {{- $Page = .Page -}}
+{{- end -}}
+
 <div class="article-details">
-    {{ if .Params.categories }}
+    {{ if $Page.Params.categories }}
     <header class="article-category">
-        {{ range (.GetTerms "categories") }}
+        {{ range ($Page.GetTerms "categories") }}
             <a href="{{ .RelPermalink }}" {{ with .Params.style }}style="background-color: {{ .background }}; color: {{ .color }};"{{ end }}>
                 {{ .LinkTitle }}
             </a>
@@ -11,18 +18,18 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="{{ .RelPermalink }}">
-                {{- .Title -}}
+            <a href="{{ $Page.RelPermalink }}">
+                {{- $Page.Title -}}
             </a>
         </h2>
-    
-        {{ with .Params.description }}
+
+        {{ with $Page.Params.description }}
         <h3 class="article-subtitle">
             {{ . }}
         </h3>
         {{ end }}
     </div>
 
-    {{/* Details using time element moved to custom to improve spec compliance */}}
-    {{ partial "article/components/custom-details-metadata" . }}
+    {{/* Forward the resolved Page object */}}
+    {{ partial "article/components/custom-details-metadata" $Page }}
 </div>

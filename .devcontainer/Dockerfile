@@ -7,9 +7,11 @@ FROM jdkato/vale:latest AS vale
 FROM mcr.microsoft.com/devcontainers/javascript-node:${NODE_VERSION}
 
 # VARIANT can be either 'hugo' for the standard version or 'hugo_extended' for the extended version.
-ARG VARIANT=hugo
+ARG VARIANT=hugo_extended
 # VERSION can be either 'latest' or a specific version number
 ARG VERSION=latest
+# Pinned version for Dart Sass standalone binary
+ARG DART_SASS_VERSION=1.80.6
 
 # Download Hugo
 RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
@@ -28,7 +30,22 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
     echo ${ARCH} && \
     wget -O ${VERSION}.tar.gz https://github.com/gohugoio/hugo/releases/download/v${VERSION}/${VARIANT}_${VERSION}_Linux-${ARCH}.tar.gz && \
     tar xf ${VERSION}.tar.gz && \
-    mv hugo /usr/bin/hugo
+    mv hugo /usr/bin/hugo && \
+    rm -rf ${VERSION}.tar.gz
+
+# Download Dart Sass (standalone binary required by Hugo for the embedded Sass protocol)
+RUN set -eux; \
+    case $(uname -m) in \
+    aarch64) \
+    SASS_ARCH="linux-arm64" ;; \
+    *) \
+    SASS_ARCH="linux-x64" ;; \
+    esac && \
+    mkdir -p /usr/local/lib && \
+    curl -fsSL "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-${SASS_ARCH}.tar.gz" \
+        | tar -xz -C /usr/local/lib && \
+    ln -sf /usr/local/lib/dart-sass/sass /usr/local/bin/sass && \
+    sass --embedded --version
 
 # Hugo dev server port
 EXPOSE 1313

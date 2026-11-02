@@ -1,0 +1,4 @@
+{{- $options := dict "transpiler" "dartsass" -}}
+{{- $sass := resources.Get "scss/style.scss" -}}
+{{- $style := $sass | css.Sass $options | minify | resources.Fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">

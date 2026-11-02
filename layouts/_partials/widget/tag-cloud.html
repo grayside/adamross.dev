@@ -6,9 +6,10 @@
     Copied from https://github.com/CaiJimmy/hugo-theme-stack/blob/4d552a9/layouts/partials/widget/tag-cloud.html
 */}}
 
-{{- $context := .Context -}}
-{{- $limit := default 10 .Params.limit -}}
-{{- $minUsage := default 1 .Params.tagCloudMinUsage -}}
+{{- $context := default . .Context -}}
+{{- $params := default . .Params -}}
+{{- $limit := default 10 $params.limit -}}
+{{- $minUsage := default 1 $params.tagCloudMinUsage -}}
 <section class="widget tagCloud">
     <div class="widget-icon">
         {{ partial "helper/icon" "tag" }}
@@ -16,8 +17,9 @@
     <h2 class="widget-title section-title">{{ T "widget.tagCloud.title" }}</h2>
     <div class="tagCloud-tags tags">
         {{- range first $limit $context.Site.Taxonomies.tags.ByCount }}
-        {{- if ge .Count $minUsage }}
-            <a href="{{ .Page.RelPermalink }}" class="font_size_{{ .Count }}">{{ .Page.Title }}</a>
-        {{- end }}{{ end }}
+            {{- if ge .Count $minUsage }}
+                <a href="{{ .Page.RelPermalink }}" class="font_size_{{ .Count }}">{{ .Page.Title }}</a>
+            {{- end }}
+        {{- end }}
     </div>
 </section>

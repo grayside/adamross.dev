@@ -21,7 +21,7 @@ rssFullContent: true
 
 # Specify an external canonical URL.
 # If both are present, will be linked from footer of post.
-canonical: https://dev.to/googlecloud/modernizing-cloudbuildyaml-for-container-builds-1je0
+canonicalUrl: https://dev.to/googlecloud/modernizing-cloudbuildyaml-for-container-builds-1je0
 canonicalTitle: DEV
 
 context: | 
